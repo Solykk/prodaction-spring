@@ -1,6 +1,5 @@
 package com.juja.prodaction.domain.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.juja.prodaction.util.DateConverter;
 import com.juja.prodaction.util.DateSerializer;
@@ -31,6 +30,9 @@ public class Post implements Serializable {
 
     @Column(name = "p_likes", nullable = false)
     private Integer likes = 0;
+
+    @Column(name = "p_user_id")
+    private Integer userId;
 
     @JsonSerialize(using = DateSerializer.class)
     @Column(name = "p_created_at", nullable = false)
@@ -73,6 +75,14 @@ public class Post implements Serializable {
         this.likes = likes;
     }
 
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
@@ -95,6 +105,7 @@ public class Post implements Serializable {
                 "uuid='" + uuid + '\'' +
                 ", message='" + message + '\'' +
                 ", likes=" + likes +
+                ", userId=" + userId +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
                 '}';
