@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd"
+        context="pg-db">
+
+    <preConditions>
+        <dbms type="postgresql"/>
+    </preConditions>
+
+    <include file="changelog/1.0/dima_00_create_schema.sql"/>
+    <include file="changelog/1.0/dima_01_create_core_tables.sql"/>
+    <include file="changelog/1.0/dima_02_create_posts_table.sql"/>
+    <include file="changelog/1.0/dima_03_inser_data_in_ta_cacheable_tables.sql"/>
+    <include file="changelog/1.0/dima_04_update_additional_information_table.sql"/>
+
+</databaseChangeLog>
