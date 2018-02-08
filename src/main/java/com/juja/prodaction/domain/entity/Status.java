@@ -19,7 +19,11 @@ public class Status implements Serializable {
     @Id
     @GenericGenerator(
             name = "my_schema.statuses_st_id_seq",
-            strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator"
+            strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
+            parameters = {
+                    @org.hibernate.annotations.Parameter(name = "sequence_name", value = "my_schema.statuses_st_id_seq"),
+                    @org.hibernate.annotations.Parameter(name = "increment_size", value = "1")
+            }
     )
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "my_schema.statuses_st_id_seq")
     @Column(name = "st_id", nullable = false, unique = true)

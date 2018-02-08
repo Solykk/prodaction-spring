@@ -7,8 +7,6 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 /**
  * @author Dmitriy Lyashenko
  */
@@ -20,7 +18,5 @@ public interface UserRepository extends CrudRepository<User, Long> {
     @Modifying
     @Query("update User as u set u.isEnabled = false where u.email =:email")
     void setSome(@Param("email") String email);
-
-    List<User> findByAdditionalInformation_Age(Integer age);
 
 }

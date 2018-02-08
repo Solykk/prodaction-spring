@@ -1,6 +1,5 @@
 package com.juja.prodaction.domain.request;
 
-import com.juja.prodaction.domain.entity.AdditionalInformation;
 import com.juja.prodaction.domain.entity.User;
 import com.juja.prodaction.util.ProductionUtil;
 
@@ -21,7 +20,9 @@ public class UserCreateRequest {
         return User.builder()
                 .name(this.name)
                 .email(this.email)
-                .additionalInformation(new AdditionalInformation(this.address, this.age, this.sex))
+                .address(this.address)
+                .age(this.age)
+                .sex(this.sex)
                 .areas(Collections.singleton(ProductionUtil.getAreaByKey("def")))
                 .status(ProductionUtil.getStatusByKey("def"))
                 .build();

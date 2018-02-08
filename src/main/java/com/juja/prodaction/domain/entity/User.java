@@ -40,16 +40,25 @@ public class User implements Serializable {
     @Column(name = "u_email", unique = true, nullable = false)
     private String email;
 
+    @Column(name = "u_address", nullable = false)
+    private String address;
+
+    @Column(name = "u_age", nullable = false)
+    private Integer age;
+
+    /**
+     * true -> man;
+     * false -> woman
+     */
+    @Column(name = "u_sex", nullable = false)
+    private boolean sex;
+
     @ManyToOne
     @JoinColumn(name = "u_status", referencedColumnName = "st_id")
     private Status status;
 
     @Column(name = "u_is_enabled", nullable = false)
     private boolean isEnabled = true;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "u_additional_information_id", referencedColumnName = "ai_id")
-    private AdditionalInformation additionalInformation;
 
     @ManyToMany
     @JoinTable(
@@ -117,13 +126,23 @@ public class User implements Serializable {
             return this;
         }
 
-        public UserBuilder isEnabled(boolean isEnabled){
-            instance.setEnabled(isEnabled);
+        public UserBuilder address(String address){
+            instance.address = address;
             return this;
         }
 
-        public UserBuilder additionalInformation(AdditionalInformation additionalInformation){
-            instance.setAdditionalInformation(additionalInformation);
+        public UserBuilder age(Integer age){
+            instance.age = age;
+            return this;
+        }
+
+        public UserBuilder sex(boolean sex){
+            instance.sex = sex;
+            return this;
+        }
+
+        public UserBuilder isEnabled(boolean isEnabled){
+            instance.setEnabled(isEnabled);
             return this;
         }
 
@@ -180,20 +199,36 @@ public class User implements Serializable {
         this.status = status;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    public boolean isSex() {
+        return sex;
+    }
+
+    public void setSex(boolean sex) {
+        this.sex = sex;
+    }
+
     public boolean isEnabled() {
         return isEnabled;
     }
 
     public void setEnabled(boolean enabled) {
         isEnabled = enabled;
-    }
-
-    public AdditionalInformation getAdditionalInformation() {
-        return additionalInformation;
-    }
-
-    public void setAdditionalInformation(AdditionalInformation additionalInformation) {
-        this.additionalInformation = additionalInformation;
     }
 
     public Set<Area> getAreas() {
@@ -257,14 +292,16 @@ public class User implements Serializable {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
+                ", address='" + address + '\'' +
+                ", age=" + age +
+                ", sex=" + sex +
                 ", status=" + status +
                 ", isEnabled=" + isEnabled +
-                ", additionalInformation=" + additionalInformation +
                 ", areas=" + areas +
                 ", friends=" + friends +
                 ", posts=" + posts +
-                ", createdAt=" + createdAt.format(DateTimeFormatter.ISO_LOCAL_DATE) +
-                ", updatedAt=" + updatedAt.format(DateTimeFormatter.ISO_LOCAL_DATE) +
+                ", createdAt=" + createdAt.format(DateTimeFormatter.ISO_DATE_TIME) +
+                ", updatedAt=" + updatedAt.format(DateTimeFormatter.ISO_DATE_TIME) +
                 '}';
     }
 }

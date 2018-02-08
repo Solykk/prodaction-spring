@@ -14,6 +14,5 @@
     <include file="changelog/1.0/dima_01_create_core_tables.sql"/>
     <include file="changelog/1.0/dima_02_create_posts_table.sql"/>
     <include file="changelog/1.0/dima_03_inser_data_in_ta_cacheable_tables.sql"/>
-    <include file="changelog/1.0/dima_04_update_additional_information_table.sql"/>
 
 </databaseChangeLog>
