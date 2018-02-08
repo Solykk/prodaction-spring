@@ -1,7 +1,9 @@
 package com.juja.prodaction.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.juja.prodaction.util.DateConverter;
+import com.juja.prodaction.util.DateSerializer;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -30,12 +32,12 @@ public class Post implements Serializable {
     @Column(name = "p_likes", nullable = false)
     private Integer likes = 0;
 
-    @JsonIgnore
+    @JsonSerialize(using = DateSerializer.class)
     @Column(name = "p_created_at", nullable = false)
     @Convert(converter = DateConverter.class)
     private LocalDateTime createdAt = LocalDateTime.now();
 
-    @JsonIgnore
+    @JsonSerialize(using = DateSerializer.class)
     @Column(name = "p_updated_at", nullable = false)
     @Convert(converter = DateConverter.class)
     private LocalDateTime updatedAt = LocalDateTime.now();
