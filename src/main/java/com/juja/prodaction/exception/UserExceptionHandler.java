@@ -1,6 +1,8 @@
 package com.juja.prodaction.exception;
 
 import com.juja.prodaction.controller.UserController;
+import com.juja.prodaction.exception.custom.LenthCustomException;
+import com.juja.prodaction.exception.custom.NameAlreadyExistException;
 import com.juja.prodaction.exception.custom.NullCustomException;
 import com.juja.prodaction.exception.model.NullProductionError;
 import org.omg.PortableServer.LifespanPolicyOperations;
@@ -27,6 +29,18 @@ public class UserExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(NullCustomException.class)
     public ResponseEntity<NullProductionError> handelNullCustomException(NullCustomException ex){
+        LOGGER.warn("NullCustomException -> [{}]", ex.getError().toString());
+        return ResponseEntity.badRequest().body(ex.getError());
+    }
+
+    @ExceptionHandler(LenthCustomException.class)
+    public ResponseEntity<NullProductionError> handelLenthCustomException(LenthCustomException ex){
+        LOGGER.warn("NullCustomException -> [{}]", ex.getError().toString());
+        return ResponseEntity.badRequest().body(ex.getError());
+    }
+
+    @ExceptionHandler(NameAlreadyExistException.class)
+    public ResponseEntity<NullProductionError> handelNameAlreadyExistException(NameAlreadyExistException ex){
         LOGGER.warn("NullCustomException -> [{}]", ex.getError().toString());
         return ResponseEntity.badRequest().body(ex.getError());
     }
