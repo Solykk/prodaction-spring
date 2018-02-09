@@ -1,6 +1,9 @@
 package com.juja.prodaction.exception;
 
 import com.juja.prodaction.controller.UserController;
+import com.juja.prodaction.exception.custom.NullCustomException;
+import com.juja.prodaction.exception.model.NullProductionError;
+import org.omg.PortableServer.LifespanPolicyOperations;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -20,5 +23,11 @@ public class UserExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<?> handelAll(Exception ex){
         LOGGER.warn(ex.getMessage());
         return ResponseEntity.badRequest().body(ex.getMessage());
+    }
+
+    @ExceptionHandler(NullCustomException.class)
+    public ResponseEntity<NullProductionError> handelNullCustomException(NullCustomException ex){
+        LOGGER.warn("NullCustomException -> [{}]", ex.getError().toString());
+        return ResponseEntity.badRequest().body(ex.getError());
     }
 }

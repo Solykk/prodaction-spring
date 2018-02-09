@@ -8,6 +8,7 @@ import com.juja.prodaction.domain.entity.User;
 import com.juja.prodaction.domain.request.PostRequest;
 import com.juja.prodaction.domain.request.UserCreateRequest;
 import com.juja.prodaction.service.SimpleCrudRepository;
+import com.juja.prodaction.service.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private SimpleCrudRepository<User, Long> service;
+    private Validator<UserCreateRequest> validator;
 
     @Autowired
     private UserRepository userRepository;
@@ -34,6 +36,7 @@ public class UserController {
 
     @PostMapping(consumes = "application/json")
     public ResponseEntity<?> createUser(@RequestBody UserCreateRequest request){
+        validator.validate(request);
         return ResponseEntity.ok(service.create(request.convert()));
     }
 
@@ -58,5 +61,10 @@ public class UserController {
     @Autowired
     public void setService(SimpleCrudRepository<User, Long> service) {
         this.service = service;
+    }
+
+    @Autowired
+    public void setValidator(Validator<UserCreateRequest> validator) {
+        this.validator = validator;
     }
 }
