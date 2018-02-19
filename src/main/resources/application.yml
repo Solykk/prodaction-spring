@@ -1,0 +1,21 @@
+##### Common #####
+server:
+  port: 9000
+
+##### DataSource #####
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/prod_db
+    username: prod_user_role
+    password: prod_pass
+    driver-class-name: org.postgresql.Driver
+
+##### Liquibase #####
+liquibase:
+  change-log: classpath:changelog/db_changelog.xml
+  default-schema: public
+
+##### Logging #####
+logging:
+  file: log/app.log
+  level: error

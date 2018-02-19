@@ -1,18 +1,17 @@
 package com.juja.prodaction.domain.entity;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.juja.prodaction.domain.request.UserCreateRequest;
 import com.juja.prodaction.util.DateConverter;
 import com.juja.prodaction.util.DateSerializer;
+import com.juja.prodaction.util.ProductionUtil;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author Dmitriy Lyashenko
@@ -89,6 +88,22 @@ public class User implements Serializable {
     @Column(name = "u_updated_at", nullable = false)
     @Convert(converter = DateConverter.class)
     private LocalDateTime updatedAt = LocalDateTime.now();
+
+    public User() {
+    }
+
+    public User(UserCreateRequest userCreateRequest) {
+
+
+        User.builder()
+                .name(userCreateRequest.getName())
+                .email(userCreateRequest.getEmail())
+                .address(userCreateRequest.getAddress())
+                .age(userCreateRequest.getAge())
+                .sex(userCreateRequest.isSex())
+                .areas(Collections.singleton(ProductionUtil.getAreaByKey("def")))
+                .status(ProductionUtil.getStatusByKey("def"));
+    }
 
     public static UserBuilder builder(){
         return new UserBuilder();

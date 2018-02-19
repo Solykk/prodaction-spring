@@ -23,11 +23,15 @@ public class UserController {
     private SimpleCrudRepository<User, Long> service;
     private Validator<UserCreateRequest> validator;
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+
+    private final FriendRepository friendRepository;
 
     @Autowired
-    private FriendRepository friendRepository;
+    public UserController(UserRepository userRepository, FriendRepository friendRepository) {
+        this.userRepository = userRepository;
+        this.friendRepository = friendRepository;
+    }
 
     @GetMapping
     public ResponseEntity<?> getAll(){
@@ -37,7 +41,7 @@ public class UserController {
     @PostMapping(consumes = "application/json")
     public ResponseEntity<?> createUser(@RequestBody UserCreateRequest request){
         validator.validate(request);
-        return ResponseEntity.ok(service.create(request.convert()));
+        return ResponseEntity.ok(service.create(new User(request)));
     }
 
     @PostMapping(value = "/{id}/{name}")
