@@ -18,8 +18,12 @@ public class PostController {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(PostController.class);
 
+    private final PostRepository postRepository;
+
     @Autowired
-    private PostRepository postRepository;
+    public PostController(PostRepository postRepository) {
+        this.postRepository = postRepository;
+    }
 
     @GetMapping(value = "")
     public ResponseEntity<?> getPosts(){
